@@ -18,11 +18,11 @@ Widget CustomTextField(
         decoration: InputDecoration(
           isDense: true,
           hintText: hintText,
-          hintStyle: TextStyle(color: textfieldGrey, fontFamily: semibold),
+          hintStyle: const TextStyle(color: textfieldGrey, fontFamily: semibold),
           fillColor: lightGrey,
           filled: true,
           border: InputBorder.none,
-          focusedBorder: OutlineInputBorder(
+          focusedBorder: const OutlineInputBorder(
             borderSide: BorderSide(color: redColor),
           ),
         ),

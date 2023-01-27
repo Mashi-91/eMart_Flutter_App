@@ -11,6 +11,7 @@ import 'package:get/get.dart';
 import 'SignUp_Screen.dart';
 
 class LoginScreen extends StatelessWidget {
+
   var controller = Get.put(AuthController());
 
   @override

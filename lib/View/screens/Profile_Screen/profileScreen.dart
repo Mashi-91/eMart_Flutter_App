@@ -28,8 +28,7 @@ class ProfileScreen extends StatelessWidget {
                     ),
                   );
                 } else {
-                  var data = snapshot.data!.docs;
-                  print(data);
+                  var data = snapshot.data!.docChanges[0].doc;
 
                   return SafeArea(
                     child: Container(
@@ -39,25 +38,35 @@ class ProfileScreen extends StatelessWidget {
                               alignment: Alignment.topRight,
                               child: IconButton(
                                   onPressed: () {
-                                    Get.to(() => EditProfileScreen());
+                                    controller.nameController.text = data['name'];
+                                    Get.to(() => EditProfileScreen(data));
                                   },
                                   icon: const Icon(EvaIcons.edit,
                                       color: whiteColor))),
                           Row(
                             children: [
+                              data['imageUrl'] == '' ?
                               Image.asset(
                                 imgProfile,
                                 width: 80,
                                 fit: BoxFit.cover,
-                              ).box.roundedFull.clip(Clip.antiAlias).make(),
+                              ).box.roundedFull.clip(Clip.antiAlias).make()
+                              : Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 5),
+                                child: Image.network(data['imageUrl'],
+                                  width: 70,
+                                  fit: BoxFit.cover,
+                                ).box.roundedFull.clip(Clip.antiAlias).make(),
+                              )
+                              ,
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  "${data}".text
+                                  "${data['name']}".text
                                       .fontFamily(semibold)
                                       .color(whiteColor)
                                       .make(),
-                                  profileemail.text
+                                  "${data['email']}".text
                                       .size(12)
                                       .color(whiteColor)
                                       .make()
@@ -90,15 +99,15 @@ class ProfileScreen extends StatelessWidget {
                             children: [
                               detailsCard(
                                   width: context.screenWidth / 3.4,
-                                  title: '00',
+                                  title: '${data['cart_count']}',
                                   subtitle: 'in your cart'),
                               detailsCard(
                                   width: context.screenWidth / 3.4,
-                                  title: '22',
+                                  title: '${data['wishlist_count']}',
                                   subtitle: 'in your wishlist'),
                               detailsCard(
                                   width: context.screenWidth / 3.4,
-                                  title: '3045',
+                                  title: '${data['order_count']}',
                                   subtitle: 'your orders'),
                             ],
                           ),

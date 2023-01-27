@@ -2,6 +2,7 @@ import 'package:delivery_app/View/screens/Category_Screen/itemDetail.dart';
 import 'package:delivery_app/Widgets/bg_widget.dart';
 import 'package:delivery_app/consts/consts.dart';
 import 'package:delivery_app/consts/lists.dart';
+import 'package:delivery_app/controller/product_controller.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -9,10 +10,12 @@ import 'package:get/get.dart';
 
 class CategoryDetail extends StatelessWidget {
   final String title;
+
   const CategoryDetail({super.key, required this.title});
 
   @override
   Widget build(BuildContext context) {
+    var controller = Get.find<ProductController>();
     return bgWidget(Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -21,24 +24,26 @@ class CategoryDetail extends StatelessWidget {
       body: Container(
         padding: EdgeInsets.symmetric(horizontal: 5, vertical: 12),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SingleChildScrollView(
               physics: BouncingScrollPhysics(),
               scrollDirection: Axis.horizontal,
               child: Row(
-                children: List.generate(8, (index) {
+                children: List.generate(controller.subCat.length, (index) {
                   return Container(
-                    child: categoriesList[index]
+                    child: "${controller.subCat[index]}"
                         .text
                         .fontFamily(semibold)
                         .size(12)
+                        .center
                         .makeCentered()
                         .box
                         .white
                         .roundedSM
                         .size(120, 60)
                         .p8
-                        .margin(EdgeInsets.symmetric(horizontal: 10))
+                        .margin(const EdgeInsets.symmetric(horizontal: 10))
                         .make(),
                   );
                 }),

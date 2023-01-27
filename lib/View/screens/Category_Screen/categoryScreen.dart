@@ -1,6 +1,7 @@
 import 'package:delivery_app/View/screens/Category_Screen/categoryDetailScreen.dart';
 import 'package:delivery_app/Widgets/bg_widget.dart';
 import 'package:delivery_app/consts/lists.dart';
+import 'package:delivery_app/controller/product_controller.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -13,6 +14,8 @@ class CategoryScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var controller = Get.put(ProductController());
+
     return bgWidget(Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -53,6 +56,8 @@ class CategoryScreen extends StatelessWidget {
                 .outerShadowSm
                 .make()
                 .onTap(() {
+                  controller.getSubCategory(categoriesList[i]);
+                  
               Get.to(() => CategoryDetail(title: categoriesList[i]));
             });
           }),
